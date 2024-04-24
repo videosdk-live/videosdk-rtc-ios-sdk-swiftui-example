@@ -21,6 +21,22 @@ struct MeetingView: View{
             } else {
                 VStack(spacing: 20) {
                     Text("Meeting ID: \(meetingViewController.meetingID)")
+                    HStack {
+                        Button {
+                            Task {
+                                await meetingViewController.meeting?.enableScreenShare()
+                            }
+                        } label: {
+                            Text("Start ScreenShare")
+                        }
+                        Button {
+                            Task {
+                                await meetingViewController.meeting?.disableScreenShare()
+                            }
+                        } label: {
+                            Text("Stop ScreenShare")
+                        }
+                    }
                     List {
                         ForEach(meetingViewController.participants.indices, id: \.self) { index in
                             ParticipantView(track: meetingViewController.participants[index].streams.first(where: { $1.kind == .state(value: .video) })?.value.track as? RTCVideoTrack).frame(height: 300)
