@@ -8,21 +8,25 @@
 import Foundation
 import VideoSDKRTC
 import WebRTC
+import SwiftUI
 
 class MeetingViewController: ObservableObject {
     
     var token = "Your_Token"
-
+    var meetingId: String = ""
+    var name: String = ""
+    
     @Published var meeting: Meeting? = nil
     @Published var localParticipantView: VideoView? = nil
     @Published var videoTrack: RTCVideoTrack?
     @Published var participants: [Participant] = []
     @Published var meetingID: String = ""
     
-    func initializeMeeting(meetingId: String) {
+    
+    func initializeMeeting(meetingId: String, userName: String) {
         meeting = VideoSDK.initMeeting(
             meetingId: meetingId,
-            participantName: "Parth",
+            participantName: userName,
             micEnabled: true,
             webcamEnabled: true
         )
@@ -63,15 +67,30 @@ extension MeetingViewController: MeetingEventListener {
     }
     
     func onMeetingLeft() {
+
         meeting?.localParticipant.removeEventListener(self)
         meeting?.removeEventListener(self)
         
         
     }
+    func onMeetingStateChanged(meetingState: MeetingState) {
+        switch meetingState {
+
+        case .CLOSED:
+            participants.removeAll()
+            
+        default:
+            print("")
+        }
+    }
 }
 
 extension MeetingViewController: ParticipantEventListener {
     func onStreamEnabled(_ stream: MediaStream, forParticipant participant: Participant) {
+        
+        if participant.isLocal && stream.kind == .share {
+            return
+        }
         
         if participant.isLocal {
             if let track = stream.track as? RTCVideoTrack {
@@ -91,6 +110,7 @@ extension MeetingViewController: ParticipantEventListener {
     func onStreamDisabled(_ stream: MediaStream, forParticipant participant: Participant) {
         
         if participant.isLocal {
+            
             if let _ = stream.track as? RTCVideoTrack {
                 DispatchQueue.main.async {
                     self.videoTrack = nil
@@ -104,7 +124,7 @@ extension MeetingViewController: ParticipantEventListener {
 
 extension MeetingViewController {
     
-    func joinRoom() {
+    func joinRoom(userName: String) {
         
         let urlString = "https://api.videosdk.live/v2/rooms"
         let session = URLSession.shared
@@ -123,7 +143,7 @@ extension MeetingViewController {
                     DispatchQueue.main.async {
                         print(dataArray.roomID)
                         self.meetingID = dataArray.roomID!
-                        self.joinMeeting(meetingId: dataArray.roomID!)
+                        self.joinMeeting(meetingId: dataArray.roomID!, userName: userName)
                     }
                     print(dataArray)
                 } catch {
@@ -134,12 +154,13 @@ extension MeetingViewController {
         ).resume()
     }
     
-    func joinMeeting(meetingId: String) {
+    func joinMeeting(meetingId: String, userName: String) {
 
         
         if !token.isEmpty {
             // use provided token for the meeting
-            self.initializeMeeting(meetingId: meetingId)
+            self.meetingID = meetingId
+            self.initializeMeeting(meetingId: meetingId, userName: userName)
         }
         else {
             // show error popup
