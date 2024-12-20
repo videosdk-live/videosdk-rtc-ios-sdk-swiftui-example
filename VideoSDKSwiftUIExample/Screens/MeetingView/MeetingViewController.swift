@@ -15,32 +15,63 @@ class MeetingViewController: ObservableObject {
     var token = "Your_Token"
     var meetingId: String = ""
     var name: String = ""
-    
+    var cameraMode: AVCaptureDevice.Position
+    var audioDevice: String?
+
     @Published var meeting: Meeting? = nil
     @Published var localParticipantView: VideoView? = nil
-    @Published var videoTrack: RTCVideoTrack?
     @Published var participants: [Participant] = []
     @Published var meetingID: String = ""
-    
-    
+    @Published var participantVideoTracks: [String: RTCVideoTrack] = [:]
+    @Published var participantMic : Bool = false
+    @Published var participantMicStatus: [String: Bool] = [:]
+
+    init(cameraMode: AVCaptureDevice.Position , audioDevice: String?) {
+         self.cameraMode = cameraMode
+         self.audioDevice = audioDevice
+     }
+
+
     func initializeMeeting(meetingId: String, userName: String) {
+        print("Inside initializeMeeting Starting")
+        
+        // Initialize the meeting
+        var videoMediaTrack = try? VideoSDK.createCameraVideoTrack(
+            encoderConfig: .h720p_w1280p,
+            facingMode: cameraMode,
+            multiStream: false
+        )
         meeting = VideoSDK.initMeeting(
             meetingId: meetingId,
             participantName: userName,
             micEnabled: true,
-            webcamEnabled: true
+            webcamEnabled: true,
+            customCameraVideoStream: videoMediaTrack
+//            multiStream: true
+
         )
-        
+        // Add event listeners and join the meeting
         meeting?.addEventListener(self)
-      
-        meeting?.join(cameraPosition: .front)
+        meeting?.join()
+        print("Inside initializeMeeting End ")
+
     }
     
+    func forPrecallAudioDeviceSetup()
+    {
+        if let audio = audioDevice {
+            print("## audio \(audio)")
+            meeting?.changeMic(selectedDevice: audio)
+        }
+    }
+
 }
 
 extension MeetingViewController: MeetingEventListener {
     func onMeetingJoined() {
-        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.forPrecallAudioDeviceSetup()
+        }
         guard let localParticipant = self.meeting?.localParticipant else { return }
         
         // add to list
@@ -50,6 +81,7 @@ extension MeetingViewController: MeetingEventListener {
         localParticipant.addEventListener(self)
         
         localParticipant.setQuality(.high)
+
     }
     
     func onParticipantJoined(_ participant: Participant) {
@@ -70,8 +102,7 @@ extension MeetingViewController: MeetingEventListener {
 
         meeting?.localParticipant.removeEventListener(self)
         meeting?.removeEventListener(self)
-        
-        
+        participants.removeAll()
     }
     func onMeetingStateChanged(meetingState: MeetingState) {
         switch meetingState {
@@ -87,37 +118,35 @@ extension MeetingViewController: MeetingEventListener {
 
 extension MeetingViewController: ParticipantEventListener {
     func onStreamEnabled(_ stream: MediaStream, forParticipant participant: Participant) {
-        
-        if participant.isLocal && stream.kind == .share {
-            return
+        if let track = stream.track as? RTCVideoTrack {
+            DispatchQueue.main.async {
+                if case .state(let mediaKind) = stream.kind, mediaKind == .video {
+                    print("WebCam Enable event")
+
+                    self.participantVideoTracks[participant.id] = track
+                }
+            }
         }
         
-        if participant.isLocal {
-            if let track = stream.track as? RTCVideoTrack {
-                DispatchQueue.main.async {
-                    self.videoTrack = track
-                }
-            }
-        } else {
-            if let track = stream.track as? RTCVideoTrack {
-                DispatchQueue.main.async {
-                    self.videoTrack = track
-                }
-            }
+        if case .state(let mediaKind) = stream.kind, mediaKind == .audio {
+            print("Mic Enable event")
+            self.participantMicStatus[participant.id] = true // Mic enabled
         }
     }
-    
+
     func onStreamDisabled(_ stream: MediaStream, forParticipant participant: Participant) {
-        
-        if participant.isLocal {
-            
-            if let _ = stream.track as? RTCVideoTrack {
-                DispatchQueue.main.async {
-                    self.videoTrack = nil
-                }
+        DispatchQueue.main.async {
+            if case .state(let mediaKind) = stream.kind, mediaKind == .video {
+                print("WebCam Disaled event")
+
+                self.participantVideoTracks.removeValue(forKey: participant.id)
             }
-        } else {
-            self.videoTrack = nil
+        }
+        if case .state(let mediaKind) = stream.kind, mediaKind == .audio {
+            print("Mic Disaled event")
+            // Update microphone state for this participant
+            self.participantMicStatus[participant.id] = false // Mic disabled
+
         }
     }
 }

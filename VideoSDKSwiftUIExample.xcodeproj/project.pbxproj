@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B537DBD2BDF9DA60074D762 /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */; };
+		2C61FD432D15324D007B6C62 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C61FD422D15324D007B6C62 /* CustomTextField.swift */; };
+		2C61FD452D15325B007B6C62 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C61FD442D15325B007B6C62 /* ActionButton.swift */; };
+		2C61FD472D153266007B6C62 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C61FD462D153266007B6C62 /* CameraPreviewView.swift */; };
+		2C61FD492D153270007B6C62 /* CameraPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C61FD482D153270007B6C62 /* CameraPreviewModel.swift */; };
+		2C61FD502D153575007B6C62 /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2C61FD4F2D153575007B6C62 /* VideoSDKRTCSwift */; };
 		6B5693672BDFA1FB00CF3522 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5693662BDFA1FB00CF3522 /* StartView.swift */; };
 		6BF0EBF32BD947420000DF8E /* RoomStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EBF22BD947420000DF8E /* RoomStruct.swift */; };
 		6BF0EBFB2BD94B7B0000DF8E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF0EBFA2BD94B7B0000DF8E /* ReplayKit.framework */; };
@@ -49,6 +53,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C61FD422D15324D007B6C62 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		2C61FD442D15325B007B6C62 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		2C61FD462D153266007B6C62 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		2C61FD482D153270007B6C62 /* CameraPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewModel.swift; sourceTree = "<group>"; };
 		6B5693662BDFA1FB00CF3522 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		6BF0EBF22BD947420000DF8E /* RoomStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomStruct.swift; sourceTree = "<group>"; };
 		6BF0EBF82BD94B7B0000DF8E /* Broadcast.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Broadcast.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,16 +91,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B537DBD2BDF9DA60074D762 /* VideoSDKRTCSwift in Frameworks */,
+				2C61FD502D153575007B6C62 /* VideoSDKRTCSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C61FD402D1531FB007B6C62 /* UIStruct */ = {
+			isa = PBXGroup;
+			children = (
+				2C61FD442D15325B007B6C62 /* ActionButton.swift */,
+				2C61FD422D15324D007B6C62 /* CustomTextField.swift */,
+			);
+			path = UIStruct;
+			sourceTree = "<group>";
+		};
+		2C61FD412D153205007B6C62 /* PrecallView */ = {
+			isa = PBXGroup;
+			children = (
+				2C61FD482D153270007B6C62 /* CameraPreviewModel.swift */,
+				2C61FD462D153266007B6C62 /* CameraPreviewView.swift */,
+			);
+			path = PrecallView;
+			sourceTree = "<group>";
+		};
 		6B5693612BDFA1B400CF3522 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				2C61FD402D1531FB007B6C62 /* UIStruct */,
+				2C61FD412D153205007B6C62 /* PrecallView */,
 				6B5693652BDFA1DE00CF3522 /* MeetingView */,
 				6B5693622BDFA1BF00CF3522 /* StartView */,
 			);
@@ -215,7 +243,7 @@
 			);
 			name = VideoSDKSwiftUIExample;
 			packageProductDependencies = (
-				6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */,
+				2C61FD4F2D153575007B6C62 /* VideoSDKRTCSwift */,
 			);
 			productName = VideoSDKSwiftUIExample;
 			productReference = B22C637329F1997900EEE43A /* VideoSDKSwiftUIExample.app */;
@@ -249,7 +277,7 @@
 			);
 			mainGroup = B22C636A29F1997900EEE43A;
 			packageReferences = (
-				6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
+				2C61FD4E2D153575007B6C62 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
 			);
 			productRefGroup = B22C637429F1997900EEE43A /* Products */;
 			projectDirPath = "";
@@ -297,11 +325,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C61FD472D153266007B6C62 /* CameraPreviewView.swift in Sources */,
 				6BF0EBF32BD947420000DF8E /* RoomStruct.swift in Sources */,
+				2C61FD492D153270007B6C62 /* CameraPreviewModel.swift in Sources */,
 				B22C637729F1997900EEE43A /* VideoSDKSwiftUIExampleApp.swift in Sources */,
+				2C61FD432D15324D007B6C62 /* CustomTextField.swift in Sources */,
 				B22C638A29F1CD8400EEE43A /* MeetingViewController.swift in Sources */,
 				B22C638829F19BC200EEE43A /* MeetingView.swift in Sources */,
 				6B5693672BDFA1FB00CF3522 /* StartView.swift in Sources */,
+				2C61FD452D15325B007B6C62 /* ActionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,9 +626,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
+		2C61FD4E2D153575007B6C62 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm.git";
+			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -605,9 +637,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */ = {
+		2C61FD4F2D153575007B6C62 /* VideoSDKRTCSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
+			package = 2C61FD4E2D153575007B6C62 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
 			productName = VideoSDKRTCSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
