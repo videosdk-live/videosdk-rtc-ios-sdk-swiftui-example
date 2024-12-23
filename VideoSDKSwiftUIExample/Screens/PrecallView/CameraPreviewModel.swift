@@ -39,7 +39,6 @@ class CameraPreviewModel: ObservableObject {
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
                                                         for: .video,
                                                         position: videoPosition) else {
-            print("Error: Unable to find video device.")
             session.commitConfiguration()
             return
         }
@@ -50,10 +49,8 @@ class CameraPreviewModel: ObservableObject {
                 session.addInput(videoInput)
                 self.videoDeviceInput = videoInput
             } else {
-                print("Error: Unable to add video input to the session.")
             }
         } catch {
-            print("Error setting up video input: \(error)")
         }
         
         session.commitConfiguration()
@@ -69,7 +66,6 @@ class CameraPreviewModel: ObservableObject {
         guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera,
                                                       for: .video,
                                                       position: newPosition) else {
-            print("Error: Unable to find camera for position \(newPosition).")
             return
         }
         
@@ -82,10 +78,8 @@ class CameraPreviewModel: ObservableObject {
                 session.addInput(newVideoInput)
                 self.videoDeviceInput = newVideoInput
             } else {
-                print("Error: Unable to add new video input to the session.")
             }
         } catch {
-            print("Error switching cameras: \(error)")
         }
         
         session.commitConfiguration()
@@ -101,9 +95,7 @@ class CameraPreviewModel: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             if let session = self?.session, session.isRunning {
                 session.stopRunning()
-                print("Session stopped.")
             } else {
-                print("Session is already stopped or not initialized.")
             }
         }
     }
