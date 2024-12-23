@@ -33,8 +33,6 @@ class MeetingViewController: ObservableObject {
 
 
     func initializeMeeting(meetingId: String, userName: String) {
-        print("Inside initializeMeeting Starting")
-        
         // Initialize the meeting
         var videoMediaTrack = try? VideoSDK.createCameraVideoTrack(
             encoderConfig: .h720p_w1280p,
@@ -53,14 +51,12 @@ class MeetingViewController: ObservableObject {
         // Add event listeners and join the meeting
         meeting?.addEventListener(self)
         meeting?.join()
-        print("Inside initializeMeeting End ")
 
     }
     
     func forPrecallAudioDeviceSetup()
     {
         if let audio = audioDevice {
-            print("## audio \(audio)")
             meeting?.changeMic(selectedDevice: audio)
         }
     }
@@ -121,15 +117,12 @@ extension MeetingViewController: ParticipantEventListener {
         if let track = stream.track as? RTCVideoTrack {
             DispatchQueue.main.async {
                 if case .state(let mediaKind) = stream.kind, mediaKind == .video {
-                    print("WebCam Enable event")
-
                     self.participantVideoTracks[participant.id] = track
                 }
             }
         }
         
         if case .state(let mediaKind) = stream.kind, mediaKind == .audio {
-            print("Mic Enable event")
             self.participantMicStatus[participant.id] = true // Mic enabled
         }
     }
@@ -137,13 +130,10 @@ extension MeetingViewController: ParticipantEventListener {
     func onStreamDisabled(_ stream: MediaStream, forParticipant participant: Participant) {
         DispatchQueue.main.async {
             if case .state(let mediaKind) = stream.kind, mediaKind == .video {
-                print("WebCam Disaled event")
-
                 self.participantVideoTracks.removeValue(forKey: participant.id)
             }
         }
         if case .state(let mediaKind) = stream.kind, mediaKind == .audio {
-            print("Mic Disaled event")
             // Update microphone state for this participant
             self.participantMicStatus[participant.id] = false // Mic disabled
 
@@ -166,7 +156,6 @@ extension MeetingViewController {
          
             if let data = data, let utf8Text = String(data: data, encoding: .utf8)
             {
-                print("UTF =>=>\(utf8Text)") // original server data as UTF8 string
                 do{
                     let dataArray = try JSONDecoder().decode(RoomsStruct.self,from: data)
                     DispatchQueue.main.async {
