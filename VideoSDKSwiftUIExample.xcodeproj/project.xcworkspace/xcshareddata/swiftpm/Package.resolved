@@ -1,14 +1,15 @@
 {
+  "originHash" : "76e7e62ab236517f16ea88928b721aa99f8de15aa455d90fbb2f222df7c3cb78",
   "pins" : [
     {
       "identity" : "videosdk-rtc-ios-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/videosdk-live/videosdk-rtc-ios-spm.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "c97e7971c7e7f597b5501f7642672439c0c531d6"
+        "revision" : "c04926b04923af7e8e1c981a6e101ee645ca7c76",
+        "version" : "2.2.6"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

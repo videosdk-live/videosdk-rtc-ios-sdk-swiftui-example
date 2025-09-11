@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B537DBD2BDF9DA60074D762 /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */; };
+		2CB5BF0C2DD45744000E5986 /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */; };
 		6B5693672BDFA1FB00CF3522 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5693662BDFA1FB00CF3522 /* StartView.swift */; };
 		6BF0EBF32BD947420000DF8E /* RoomStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EBF22BD947420000DF8E /* RoomStruct.swift */; };
 		6BF0EBFB2BD94B7B0000DF8E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF0EBFA2BD94B7B0000DF8E /* ReplayKit.framework */; };
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B537DBD2BDF9DA60074D762 /* VideoSDKRTCSwift in Frameworks */,
+				2CB5BF0C2DD45744000E5986 /* VideoSDKRTCSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +215,7 @@
 			);
 			name = VideoSDKSwiftUIExample;
 			packageProductDependencies = (
-				6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */,
+				2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */,
 			);
 			productName = VideoSDKSwiftUIExample;
 			productReference = B22C637329F1997900EEE43A /* VideoSDKSwiftUIExample.app */;
@@ -249,7 +249,7 @@
 			);
 			mainGroup = B22C636A29F1997900EEE43A;
 			packageReferences = (
-				6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
+				2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
 			);
 			productRefGroup = B22C637429F1997900EEE43A /* Products */;
 			projectDirPath = "";
@@ -594,20 +594,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
+		2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = exactVersion;
+				version = 2.2.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6B537DBC2BDF9DA60074D762 /* VideoSDKRTCSwift */ = {
+		2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 6B537DBB2BDF9DA60074D762 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
+			package = 2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
 			productName = VideoSDKRTCSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

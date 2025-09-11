@@ -33,7 +33,7 @@ class MeetingViewController: ObservableObject {
         
         meeting?.addEventListener(self)
       
-        meeting?.join(cameraPosition: .front)
+        meeting?.join()
     }
     
 }
@@ -76,7 +76,7 @@ extension MeetingViewController: MeetingEventListener {
     func onMeetingStateChanged(meetingState: MeetingState) {
         switch meetingState {
 
-        case .CLOSED:
+        case .DISCONNECTED:
             participants.removeAll()
             
         default:
