@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2CB5BF0C2DD45744000E5986 /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */; };
 		6B5693672BDFA1FB00CF3522 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5693662BDFA1FB00CF3522 /* StartView.swift */; };
 		6BF0EBF32BD947420000DF8E /* RoomStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EBF22BD947420000DF8E /* RoomStruct.swift */; };
 		6BF0EBFB2BD94B7B0000DF8E /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BF0EBFA2BD94B7B0000DF8E /* ReplayKit.framework */; };
@@ -17,6 +16,7 @@
 		6BF0EC0E2BD94C6C0000DF8E /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EC0A2BD94C6C0000DF8E /* Atomic.swift */; };
 		6BF0EC0F2BD94C6C0000DF8E /* DarwinNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EC0B2BD94C6C0000DF8E /* DarwinNotification.swift */; };
 		6BF0EC102BD94C6C0000DF8E /* SampleUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF0EC0C2BD94C6C0000DF8E /* SampleUploader.swift */; };
+		845E96912F56F7E90040E39D /* VideoSDKRTCSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 845E96902F56F7E90040E39D /* VideoSDKRTCSwift */; };
 		B22C637729F1997900EEE43A /* VideoSDKSwiftUIExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22C637629F1997900EEE43A /* VideoSDKSwiftUIExampleApp.swift */; };
 		B22C637B29F1997B00EEE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B22C637A29F1997B00EEE43A /* Assets.xcassets */; };
 		B22C637E29F1997B00EEE43A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B22C637D29F1997B00EEE43A /* Preview Assets.xcassets */; };
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB5BF0C2DD45744000E5986 /* VideoSDKRTCSwift in Frameworks */,
+				845E96912F56F7E90040E39D /* VideoSDKRTCSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +215,7 @@
 			);
 			name = VideoSDKSwiftUIExample;
 			packageProductDependencies = (
-				2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */,
+				845E96902F56F7E90040E39D /* VideoSDKRTCSwift */,
 			);
 			productName = VideoSDKSwiftUIExample;
 			productReference = B22C637329F1997900EEE43A /* VideoSDKSwiftUIExample.app */;
@@ -249,7 +249,7 @@
 			);
 			mainGroup = B22C636A29F1997900EEE43A;
 			packageReferences = (
-				2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
+				845E968F2F56F7E90040E39D /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */,
 			);
 			productRefGroup = B22C637429F1997900EEE43A /* Products */;
 			projectDirPath = "";
@@ -594,20 +594,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
+		845E968F2F56F7E90040E39D /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm.git";
+			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm";
 			requirement = {
 				kind = exactVersion;
-				version = 2.2.6;
+				version = 2.7.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2CB5BF0B2DD45744000E5986 /* VideoSDKRTCSwift */ = {
+		845E96902F56F7E90040E39D /* VideoSDKRTCSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2CB5BF0A2DD45744000E5986 /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
+			package = 845E968F2F56F7E90040E39D /* XCRemoteSwiftPackageReference "videosdk-rtc-ios-spm" */;
 			productName = VideoSDKRTCSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
