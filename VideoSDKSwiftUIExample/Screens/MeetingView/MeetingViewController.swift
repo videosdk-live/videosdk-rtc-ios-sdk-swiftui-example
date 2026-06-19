@@ -80,10 +80,12 @@ extension MeetingViewController: MeetingEventListener {
     }
 
     func onMeetingLeft() {
-
         meeting?.localParticipant.removeEventListener(self)
-        meeting?.removeEventListener(self)
-
+        meeting?.removeAllEventListeners()
+        participants.removeAll()
+        meeting = nil
+        videoTrack = nil
+        localParticipantView = nil
     }
 
     func onMeetingStateChanged(meetingState: MeetingState) {

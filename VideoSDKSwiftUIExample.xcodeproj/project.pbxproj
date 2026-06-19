@@ -598,8 +598,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/videosdk-live/videosdk-rtc-ios-spm";
 			requirement = {
-				kind = exactVersion;
-				version = 2.7.1;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
