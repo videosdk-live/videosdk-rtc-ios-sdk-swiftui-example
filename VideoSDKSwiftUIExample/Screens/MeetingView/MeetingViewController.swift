@@ -28,7 +28,7 @@ class MeetingViewController: ObservableObject {
             encoderConfig: .h720p_w1280p,
             facingMode: .front,
             multiStream: true,
-            codec: .H264,
+            codec: .VP8,
             bitrateMode: .HIGH_QUALITY,
             maxLayer: .MAX_LAYER_3
         )

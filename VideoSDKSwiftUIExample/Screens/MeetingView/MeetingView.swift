@@ -88,15 +88,6 @@ struct MeetingView: View {
                                         RoundedRectangle(cornerRadius: 25)
                                             .fill(Color.blue)
                                     )
-
-                                // Image(systemName: isUnMute ? "mic.fill" : "mic.slash")
-                                //     .resizable()
-                                //     .scaledToFit()
-                                //     .font(.headline)
-                                //     .frame(width: 40, height: 40)
-                                //     .padding(10)
-                                //     .foregroundColor(.orange)
-                                //     .shadow(radius: 3, x: 3)
                             }
 
                             // camera button
@@ -120,15 +111,6 @@ struct MeetingView: View {
                                         RoundedRectangle(cornerRadius: 25)
                                             .fill(Color.blue)
                                     )
-
-                                // Image(systemName: camEnabled ? "video.fill" : "video.slash")
-                                //     .resizable()
-                                //     .scaledToFit()
-                                //     .font(.headline)
-                                //     .frame(width: 40, height: 40)
-                                //     .padding(10)
-                                //     .foregroundColor(.green)
-                                //     .shadow(radius: 3, x: 3)
                             }
                         }
                         HStack {
@@ -157,14 +139,6 @@ struct MeetingView: View {
                                         RoundedRectangle(cornerRadius: 25)
                                             .fill(Color.blue)
                                     )
-                                //  Image(systemName: "rectangle.inset.filled.and.person.filled")
-                                //    .resizable()
-                                //    .scaledToFit()
-                                //    .font(.headline)
-                                //    .frame(width: 40, height: 40)
-                                //    .padding(10)
-                                //    .foregroundColor(.black)
-                                //    .shadow(radius: 3, x: 3)
                             }
 
                             // end meeting button
@@ -181,16 +155,6 @@ struct MeetingView: View {
                                         RoundedRectangle(cornerRadius: 25)
                                             .fill(Color.red)
                                     )
-
-                                //  Image(systemName: "phone.down.fill")
-                                //    .resizable()
-                                //    .scaledToFit()
-                                //    .frame(width: 40, height: 40)
-                                //    .font(.headline)
-                                //    .padding(10)
-                                //    .foregroundColor(.red)
-                                //    .shadow(radius: 3, x: 3)
-                                //    }}
                             }
 
                         }
@@ -269,7 +233,6 @@ struct ParticipantView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: VideoView, context: Context) {
-        print("ui updated")
         if track != nil {
             track?.add(uiView.videoView)
         } else {
