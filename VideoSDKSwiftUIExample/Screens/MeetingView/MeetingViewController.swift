@@ -110,6 +110,11 @@ extension MeetingViewController: MeetingEventListener {
 }
 
 extension MeetingViewController: ParticipantEventListener {
+    
+    func onAgentMetrics(_ metrics: [String : Any], forParticipant participant: Participant) {
+        print("Agent Participant Metrics: \(metrics)")
+    }
+    
     func onStreamEnabled(
         _ stream: MediaStream,
         forParticipant participant: Participant
