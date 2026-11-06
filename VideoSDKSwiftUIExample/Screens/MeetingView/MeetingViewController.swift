@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 import VideoSDKRTC
-import WebRTC
 
 class MeetingViewController: ObservableObject {
 
@@ -16,7 +15,7 @@ class MeetingViewController: ObservableObject {
     var meetingId: String = ""
     var name: String = ""
 
-    @Published var meeting: Meeting? = nil
+    @Published var meeting: Room? = nil
     @Published var localParticipantView: VideoView? = nil
     @Published var videoTrack: RTCVideoTrack?
     @Published var participants: [Participant] = []
@@ -24,35 +23,38 @@ class MeetingViewController: ObservableObject {
 
     func initializeMeeting(meetingId: String, userName: String) {
 
-        let videoTrack = try? VideoSDK.createCameraVideoTrack(
-            encoderConfig: .h720p_w1280p,
-            facingMode: .front,
-            multiStream: true,
-            codec: .VP8,
-            bitrateMode: .HIGH_QUALITY,
-            maxLayer: .MAX_LAYER_3
-        )
+        Task { @MainActor in
+            let videoTrack = try? await VideoSDK.createCameraVideoTrack(
+                encoderConfig: .h720p_w1280p,
+                facingMode: .front,
+                multiStream: true,
+                maxLayer: .MAX_LAYER_3,
+                bitrateMode: .HIGH_QUALITY,
+                codec: .VP8
+            )
 
-        meeting = VideoSDK.initMeeting(
-            meetingId: meetingId,
-            participantName: userName,
-            micEnabled: true,
-            webcamEnabled: true,
-            customCameraVideoStream: videoTrack,
-            mode: .SEND_AND_RECV,
-            preferredProtocol: .UDP_OVER_TCP,
-            signalingBaseUrl: nil,
-        )
+            meeting = try? VideoSDK.createRoom(
+                roomId: meetingId,
+                token: token,
+                participantName: userName,
+                micEnabled: true,
+                camEnabled: true,
+                mode: .SEND_AND_RECV,
+                customCameraTrack: videoTrack,
+                signalingBaseUrl: nil,
+                preferredProtocol: .UDP_OVER_TCP
+            )
 
-        meeting?.addEventListener(self)
+            meeting?.addEventListener(self)
 
-        meeting?.join()
+            try? await meeting?.join()
+        }
     }
 
 }
 
-extension MeetingViewController: MeetingEventListener {
-    func onMeetingJoined() {
+extension MeetingViewController: RoomEventListener {
+    func onRoomJoined() {
 
         guard let localParticipant = self.meeting?.localParticipant else {
             return
@@ -75,11 +77,11 @@ extension MeetingViewController: MeetingEventListener {
         //        participant.setQuality(.high)
     }
 
-    func onParticipantLeft(_ participant: Participant) {
+    func onParticipantLeft(_ participant: Participant, reason: LeaveReason) {
         participants = participants.filter({ $0.id != participant.id })
     }
 
-    func onMeetingLeft() {
+    func onRoomLeft(reason: LeaveReason) {
         meeting?.localParticipant.removeEventListener(self)
         meeting?.removeAllEventListeners()
         participants.removeAll()
@@ -88,8 +90,8 @@ extension MeetingViewController: MeetingEventListener {
         localParticipantView = nil
     }
 
-    func onMeetingStateChanged(meetingState: MeetingState) {
-        switch meetingState {
+    func onRoomStateChanged(roomState: RoomState) {
+        switch roomState {
 
         case .DISCONNECTED:
             participants.removeAll()
@@ -116,7 +118,7 @@ extension MeetingViewController: ParticipantEventListener {
     }
     
     func onStreamEnabled(
-        _ stream: MediaStream,
+        _ stream: RTCStream,
         forParticipant participant: Participant
     ) {
 
@@ -140,7 +142,7 @@ extension MeetingViewController: ParticipantEventListener {
     }
 
     func onStreamDisabled(
-        _ stream: MediaStream,
+        _ stream: RTCStream,
         forParticipant participant: Participant
     ) {
 

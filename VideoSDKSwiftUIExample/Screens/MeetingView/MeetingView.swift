@@ -7,7 +7,6 @@
 
 import SwiftUI
 import VideoSDKRTC
-import WebRTC
 
 struct MeetingView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -45,12 +44,12 @@ struct MeetingView: View {
                                             meetingViewController.participants[
                                                 index
                                             ].streams.first(where: {
-                                                $1.kind == .state(value: .video)
+                                                $1.kind == .video
                                             })?.value.track as? RTCVideoTrack
                                     ).frame(height: 250)
                                     if meetingViewController.participants[index]
                                         .streams.first(where: {
-                                            $1.kind == .state(value: .video)
+                                            $1.kind == .video
                                         }) == nil
                                     {
                                         Color.white.opacity(1.0).frame(
@@ -71,11 +70,11 @@ struct MeetingView: View {
                             Button {
                                 if isUnMute {
                                     isUnMute = false
-                                    meetingViewController.meeting?.muteMic()
+                                    Task { try? await meetingViewController.meeting?.muteMic() }
 
                                 } else {
                                     isUnMute = true
-                                    meetingViewController.meeting?.unmuteMic()
+                                    Task { try? await meetingViewController.meeting?.unmuteMic() }
                                 }
 
                             } label: {
@@ -94,12 +93,16 @@ struct MeetingView: View {
                             Button {
                                 if camEnabled {
                                     camEnabled = false
-                                    meetingViewController.meeting?
-                                        .disableWebcam()
+                                    Task {
+                                        try? await meetingViewController.meeting?
+                                            .disableCam()
+                                    }
                                 } else {
                                     camEnabled = true
-                                    meetingViewController.meeting?
-                                        .enableWebcam()
+                                    Task {
+                                        try? await meetingViewController.meeting?
+                                            .enableCam()
+                                    }
                                 }
                             } label: {
 
@@ -119,13 +122,13 @@ struct MeetingView: View {
                                 if isScreenShare {
                                     isScreenShare = false
                                     Task {
-                                        await meetingViewController.meeting?
+                                        try? await meetingViewController.meeting?
                                             .disableScreenShare()
                                     }
                                 } else {
                                     isScreenShare = true
                                     Task {
-                                        await meetingViewController.meeting?
+                                        try? await meetingViewController.meeting?
                                             .enableScreenShare()
                                     }
                                 }
@@ -143,7 +146,7 @@ struct MeetingView: View {
 
                             // end meeting button
                             Button {
-                                meetingViewController.meeting?.end()
+                                Task { try? await meetingViewController.meeting?.end() }
                                 presentationMode.wrappedValue.dismiss()
                             } label: {
 
@@ -164,8 +167,6 @@ struct MeetingView: View {
 
             }
         }.onAppear {
-            /// MARK :- configuring the videoSDK
-            VideoSDK.config(token: meetingViewController.token)
             if meetingId?.isEmpty == false {
                 meetingViewController.joinMeeting(
                     meetingId: meetingId!,
